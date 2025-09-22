@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-
+import logo from "../assets/logo.png"
 const Navigation = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +22,8 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <ShoppingBag className="h-8 w-8 text-primary group-hover:text-primary-dark transition-colors" />
+            {/* <ShoppingBag className="h-8 w-8 text-primary group-hover:text-primary-dark transition-colors" /> */}
+            <img src={logo} className="h-10 w-10 text-primary group-hover:text-primary-dark transition-colors" />
             <span className="text-xl font-bold text-gradient">Rustam Treasure</span>
           </Link>
 
