@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Elegant Rose Perfume",
-    "price": 89.99,
-    "originalPrice": 119.99,
-    "image": "/placeholder.svg",
+    "name": "Red theme Present",
+    "price": 4350,
+    "originalPrice": 5000,
+    "image": "/product.webp",
     "rating": 5,
-    "category": "Fragrance"
+    "category": "present"
   },
   {
     "id": 2,
