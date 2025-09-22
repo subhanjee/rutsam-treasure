@@ -3,59 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductCard from './ProductCard';
 import products from "../../data.json"
-// const products = [
-//   {
-//     id: 1,
-//     name: 'Elegant Rose Perfume',
-//     price: 89.99,
-//     originalPrice: 119.99,
-//     image: '/placeholder.svg',
-//     rating: 5,
-//     category: 'Fragrance',
-//   },
-//   {
-//     id: 2,
-//     name: 'Luxury Silk Scarf',
-//     price: 149.99,
-//     image: '/placeholder.svg',
-//     rating: 4,
-//     category: 'Accessories',
-//   },
-//   {
-//     id: 3,
-//     name: 'Pearl Necklace Set',
-//     price: 299.99,
-//     originalPrice: 399.99,
-//     image: '/placeholder.svg',
-//     rating: 5,
-//     category: 'Jewelry',
-//   },
-//   {
-//     id: 4,
-//     name: 'Designer Handbag',
-//     price: 249.99,
-//     image: '/placeholder.svg',
-//     rating: 4,
-//     category: 'Bags',
-//   },
-//   {
-//     id: 5,
-//     name: 'Premium Skincare Set',
-//     price: 179.99,
-//     originalPrice: 229.99,
-//     image: '/placeholder.svg',
-//     rating: 5,
-//     category: 'Beauty',
-//   },
-//   {
-//     id: 6,
-//     name: 'Cashmere Sweater',
-//     price: 199.99,
-//     image: '/placeholder.svg',
-//     rating: 4,
-//     category: 'Fashion',
-//   },
-// ];
+
 
 interface ProductSliderProps {
   title?: string;

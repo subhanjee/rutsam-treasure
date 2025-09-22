@@ -5,6 +5,7 @@
     "price": 4350,
     "originalPrice": 5000,
     "image": "/product.webp",
+    "images": ["/product.webp", "/product 1.JPG"], 
     "rating": 5,
     "category": "present"
   },

@@ -1,7 +1,10 @@
-import { Star, Heart, ShoppingCart } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { Star, Heart, ShoppingCart } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface Product {
   id: number;
@@ -9,6 +12,7 @@ interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[]; // 👈 multiple images
   rating: number;
   category: string;
 }
@@ -21,76 +25,136 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   return (
-    <Card className="product-card group overflow-hidden border-0 shadow-soft hover:shadow-hover">
-      <div className="relative overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full  object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsWishlisted(!isWishlisted)}
-            className="bg-background/80 backdrop-blur-sm hover:bg-background"
-          >
-            <Heart
-              className={`h-4 w-4 ${
-                isWishlisted ? 'fill-red-500 text-red-500' : 'text-foreground'
-              }`}
+    <Dialog>
+      <DialogTrigger asChild>
+        <Card className="product-card group overflow-hidden border-0 shadow-soft hover:shadow-hover cursor-pointer">
+          <div className="relative overflow-hidden">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-          </Button>
-        </div>
-        {product.originalPrice && (
-          <div className="absolute top-4 left-4">
-            <span className="bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded">
-              Sale
-            </span>
-          </div>
-        )}
-      </div>
-      <CardContent className="p-4">
-        <div className="mb-2">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide">
-            {product.category}
-          </p>
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-            {product.name}
-          </h3>
-        </div>
-        <div className="flex items-center mb-3">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-3 w-3 ${
-                  i < product.rating ? 'fill-primary text-primary' : 'text-muted-foreground'
-                }`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground ml-2">({product.rating})</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-foreground">Rs{product.price}</span>
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsWishlisted(!isWishlisted);
+                }}
+                className="bg-background/80 backdrop-blur-sm hover:bg-background"
+              >
+                <Heart
+                  className={`h-4 w-4 ${
+                    isWishlisted ? "fill-red-500 text-red-500" : "text-foreground"
+                  }`}
+                />
+              </Button>
+            </div>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">
-                ${product.originalPrice}
-              </span>
+              <div className="absolute top-4 left-4">
+                <span className="bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded">
+                  Sale
+                </span>
+              </div>
             )}
           </div>
-          <Button
-            size="sm"
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          >
-            <ShoppingCart className="h-4 w-4 mr-1" />
-            Add
-          </Button>
+          <CardContent className="p-4">
+            <div className="mb-2">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide">
+                {product.category}
+              </p>
+              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                {product.name}
+              </h3>
+            </div>
+            <div className="flex items-center mb-3">
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-3 w-3 ${
+                      i < product.rating
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-muted-foreground ml-2">
+                ({product.rating})
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-foreground">
+                  Rs{product.price}
+                </span>
+                {product.originalPrice && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    ${product.originalPrice}
+                  </span>
+                )}
+              </div>
+              <Button
+                size="sm"
+                className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <ShoppingCart className="h-4 w-4 mr-1" />
+                Add
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </DialogTrigger>
+
+      {/* Modal content */}
+      <DialogContent className="max-w-xl p-0 overflow-hidden">
+        <ProductModal product={product} />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// 👇 separate modal component with slider
+const ProductModal = ({ product }: { product: Product }) => {
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3000 })]);
+
+  return (
+    <div className="p-4">
+      {/* Slider */}
+      <div className="overflow-hidden rounded-lg" ref={emblaRef}>
+        <div className="flex">
+          {(product.images ?? [product.image]).map((img, i) => (
+            <div key={i} className="flex-[0_0_100%]">
+              <img
+                src={img}
+                alt={`Slide ${i}`}
+                className="w-full h-auto  object-cover"
+              />
+            </div>
+          ))}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      {/* Product Info */}
+      <div className="mt-4">
+        <h2 className="text-lg font-semibold">{product.name}</h2>
+        <p className="text-sm text-muted-foreground">{product.category}</p>
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-xl font-bold">Rs{product.price}</span>
+          {product.originalPrice && (
+            <span className="text-sm text-muted-foreground line-through">
+              Rs{product.originalPrice}
+            </span>
+          )}
+        </div>
+        <Button className="mt-4 w-full">
+          <ShoppingCart className="h-4 w-4 mr-2" />
+          Add to Cart
+        </Button>
+      </div>
+    </div>
   );
 };
 
