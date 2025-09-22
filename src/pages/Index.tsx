@@ -1,4 +1,4 @@
-import { ArrowRight, Star, TruckIcon, Shield, RefreshCw } from 'lucide-react';
+import { ArrowRight, Star, TruckIcon, Shield, SmilePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductSlider from '@/components/ProductSlider';
@@ -18,8 +18,8 @@ const Index = () => {
                 <span className="text-gradient block">Rustam Treasure</span>
               </h1>
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Curated luxury products that define elegance and sophistication. 
-                Find your perfect style with our exclusive collection.
+                Curated treasures, wrapped in love 🌸<br/>
+                 <span>Soft surprises, timeless smiles</span> 
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="btn-primary group">
@@ -55,7 +55,7 @@ const Index = () => {
               {
                 icon: TruckIcon,
                 title: 'Free Delivery',
-                description: 'Free shipping on orders over $99'
+                description: 'Free shipping on orders over Rs1000'
               },
               {
                 icon: Shield,
@@ -63,9 +63,9 @@ const Index = () => {
                 description: '100% secure payment processing'
               },
               {
-                icon: RefreshCw,
-                title: 'Easy Returns',
-                description: '30-day hassle-free returns'
+                icon: SmilePlus,
+                title: 'Satisfy Client',
+                description: '100 plus satisfy clients'
               }
             ].map((feature, index) => (
               <Card 
