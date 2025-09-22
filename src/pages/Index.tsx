@@ -55,7 +55,7 @@ const Index = () => {
               {
                 icon: TruckIcon,
                 title: 'Free Delivery',
-                description: 'Free shipping on orders over Rs1000'
+                description: 'Free shipping on orders over Rs1500'
               },
               {
                 icon: Shield,
